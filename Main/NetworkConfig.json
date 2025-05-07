@@ -21,17 +21,17 @@
   
 	"doca_program_flags":{
 		// -s - Set application signature
-		"app-sig": "10.10.1.1/32:* 10.10.1.2/32:3232 TCP",
+		"app-sig": "",
 		// -o - Set offload predicate file path
 		"udf-path": "../OffloadEngine/UDFSamples/",
 		// -h - Set host MAC address
 		"host-mac": "b8:3f:d2:b9:21:fc",
 		// -i - Set the host IPv4
-		"host-ipv4": "10.10.1.2",
+		"host-ipv4": "10.26.57.55",
 		// -u - Set the DPU IPv4
-		"dpu-ipv4": "10.10.1.12",
+		"dpu-ipv4": "10.26.57.9",
 		// -f - Set forwarding rules
-		"fwd-rules": "10.10.1.1/32 b8:ce:f6:cc:8e:dc",
+		"fwd-rules": "",
 		// -p - Set the host port
 		"host-port": 3232,
 		// -d - Set if use DPDK
