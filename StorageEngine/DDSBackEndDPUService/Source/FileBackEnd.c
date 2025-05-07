@@ -20,7 +20,7 @@
 #include "CacheTable.h"
 #include "DDSTypes.h"
 #include "FileBackEnd.h"
-
+#include "Debug.h"
 #ifdef PRELOAD_CACHE_TABLE_ITEMS
 #include <stdlib.h>
 #endif
@@ -112,7 +112,7 @@ InitDMA(
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = Ip;
     sin.sin_port = Port;
-
+    
     ret = rdma_bind_addr(Config->CmId, (struct sockaddr *) &sin);
     if (ret) {
         ret = errno;
@@ -3014,6 +3014,7 @@ int RunFileBackEnd(
     // Initialize the back end configuration
     //
     //
+    debugItem("server_ip: %s, server_port:%d",ServerIpStr, ServerPort);
     config.ServerIp = inet_addr(ServerIpStr);
     config.ServerPort = htons(ServerPort);;
     config.MaxClients = MaxClients;

@@ -18,7 +18,7 @@ static inline void DebugPrint(const char* Fmt, ...) { }
 // The global cache table
 //
 //
-CacheTableT* CacheTable;
+extern CacheTableT* CacheTable;
 
 void DataPlaneRequestHandler(
     void* Ctx

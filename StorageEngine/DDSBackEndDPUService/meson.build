@@ -1,11 +1,11 @@
-project('DDSFileBackEnd', 'C', 'CPP',
+project('DDSFileBackEnd','C', 'CPP',
         version: '0.1',
         license: 'Proprietary',
         default_options: ['buildtype=release'],
         meson_version: '>= 0.61.2'
 )
 
-languages = ['c', 'cpp']
+languages = ['cpp', 'c']
 
 install_apps = false
 
@@ -42,6 +42,7 @@ base_app_inc_dirs = [
         include_directories('./Include/'),
         include_directories('../../Common/Include/'),
         include_directories('../../Common/Include/DPU'),
+        include_directories('../../Util/Debug/include/'),
 	include_directories(spdk_inc_path)
 ]
 
@@ -61,7 +62,9 @@ app_srcs += [
         'Source/Zmalloc.c',
         '../../Common/Source/DPU/BackEndControl.c',
         '../../Common/Source/DPU/FileService.c',
+        '../../Common/Source/DPU/CacheTable.c',
         '../../Common/Source/DPU/RingBufferPolling.c',
+        '../../Util/Debug/src/Debug.cpp',
 ]
 
 ##
