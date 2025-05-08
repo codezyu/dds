@@ -10,7 +10,7 @@
 #endif
 
 #include "DDSBackEndBridge.h"
-
+#include <stdio.h>
 namespace DDS_FrontEnd {
 
 #if BACKEND_TYPE == BACKEND_TYPE_DPU
@@ -411,7 +411,7 @@ DDSBackEndBridge::CreateDirectory(
     req->ParentDirId = ParentId;
     strcpy(req->PathName, PathName);
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqCreateDirectory);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqCreateDirectory);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_CREATE_DIR);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -441,7 +441,7 @@ DDSBackEndBridge::RemoveDirectory(
     CtrlMsgF2BReqRemoveDirectory* req = (CtrlMsgF2BReqRemoveDirectory*)(CtrlMsgBuf + sizeof(MsgHeader));
     req->DirId = DirId;
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqRemoveDirectory);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqRemoveDirectory);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_REMOVE_DIR);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -477,7 +477,7 @@ DDSBackEndBridge::CreateFile(
     req->DirId = DirId;
     strcpy(req->FileName, FileName);
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqCreateFile);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqCreateFile);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_CREATE_FILE);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -509,7 +509,7 @@ DDSBackEndBridge::DeleteFile(
     req->DirId = DirId;
     req->FileId = FileId;
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqDeleteFile);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqDeleteFile);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_DELETE_FILE);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -541,7 +541,7 @@ DDSBackEndBridge::ChangeFileSize(
     req->FileId = FileId;
     req->NewSize = NewSize;
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqChangeFileSize);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqChangeFileSize);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_CHANGE_FILE_SIZE);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -572,7 +572,7 @@ DDSBackEndBridge::GetFileSize(
     CtrlMsgF2BReqGetFileSize* req = (CtrlMsgF2BReqGetFileSize*)(CtrlMsgBuf + sizeof(MsgHeader));
     req->FileId = FileId;
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqGetFileSize);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqGetFileSize);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_GET_FILE_SIZE);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -730,7 +730,7 @@ DDSBackEndBridge::GetFileInformationById(
     CtrlMsgF2BReqGetFileInfo* req = (CtrlMsgF2BReqGetFileInfo*)(CtrlMsgBuf + sizeof(MsgHeader));
     req->FileId = FileId;
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqGetFileInfo);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqGetFileInfo);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_GET_FILE_INFO);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -762,7 +762,7 @@ DDSBackEndBridge::GetFileAttributes(
     CtrlMsgF2BReqGetFileAttr* req = (CtrlMsgF2BReqGetFileAttr*)(CtrlMsgBuf + sizeof(MsgHeader));
     req->FileId = FileId;
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqGetFileAttr);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqGetFileAttr);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_GET_FILE_ATTR);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -793,7 +793,7 @@ DDSBackEndBridge::GetStorageFreeSpace(
     CtrlMsgF2BReqGetFreeSpace* req = (CtrlMsgF2BReqGetFreeSpace*)(CtrlMsgBuf + sizeof(MsgHeader));
     req->Dummy = 42;
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqGetFreeSpace);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqGetFreeSpace);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_GET_FREE_SPACE);
     if (result != DDS_ERROR_CODE_SUCCESS) {
@@ -827,7 +827,7 @@ DDSBackEndBridge::MoveFile(
     req->FileId = FileId;
     strcpy(req->NewFileName, NewFileName);
     
-    CtrlSgl->BufferLength = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqMoveFile);
+    CtrlSgl.length = sizeof(MsgHeader) + sizeof(CtrlMsgF2BReqMoveFile);
     
     result = SendCtrlMsgAndWait(this, CTRL_MSG_B2F_ACK_GET_FREE_SPACE);
     if (result != DDS_ERROR_CODE_SUCCESS) {

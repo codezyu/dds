@@ -7,8 +7,9 @@
 
 #include "MsgTypes.h"
 #include "Protocol.h"
-#include "RDMC.h"
-
+#include "RDMAController.h"
+#include <sys/socket.h>
+#include <netinet/in.h>
 #define BACKEND_TYPE_IN_MEMORY 1
 #define BACKEND_TYPE_DMA 2
 #define BACKEND_TYPE BACKEND_TYPE_DMA
@@ -33,20 +34,19 @@ public:
     // RNIC configuration
     //
     //
-    IND2Adapter* Adapter;
-    HANDLE AdapterFileHandle;
-    ND2_ADAPTER_INFO AdapterInfo;
-    OVERLAPPED Ov;
+    struct ibv_context       *ctx;
+    struct ibv_pd            *pd;
+    struct ibv_comp_channel  *comp_chan;
+    struct ibv_cq            *CtrlCompQ;
+    struct ibv_qp            *CtrlQPair;
+    struct ibv_mr            *CtrlMr;
+    struct ibv_sge           CtrlSgl;
+
     size_t QueueDepth;
     size_t MaxSge;
     size_t InlineThreshold;
     struct sockaddr_in LocalSock;
 
-    IND2Connector* CtrlConnector;
-    IND2CompletionQueue* CtrlCompQ;
-    IND2QueuePair* CtrlQPair;
-    IND2MemoryRegion* CtrlMemRegion;
-    ND2_SGE* CtrlSgl;
     char CtrlMsgBuf[CTRL_MSG_SIZE];
 
     int ClientId;

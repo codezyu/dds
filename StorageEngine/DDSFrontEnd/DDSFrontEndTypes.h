@@ -31,7 +31,7 @@ typedef struct FileIOT {
     Atomic<bool> IsReadyForPoll = false;
 #elif BACKEND_TYPE == BACKEND_TYPE_DPU
     RequestIdT RequestId = 0;
-    Atomic<bool> IsAvailable = true;
+    Atomic<bool> IsAvailable{true};
 #endif
     ContextT FileReference = (ContextT)nullptr;
     FileIdT FileId = (FileIdT)DDS_FILE_INVALID;

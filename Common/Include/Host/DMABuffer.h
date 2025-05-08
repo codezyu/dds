@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "RDMC.h"
+#include "RDMAController.h"
 #include "MsgTypes.h"
 
 class DMABuffer {
@@ -18,22 +18,21 @@ private:
     // RNIC configuration
     //
     //
-    IND2Adapter* Adapter;
-    HANDLE AdapterFileHandle;
-    IND2Connector* Connector;
-    OVERLAPPED Ov;
-    IND2CompletionQueue* CompQ;
-    IND2QueuePair* QPair;
-    IND2MemoryRegion* MemRegion;
-    IND2MemoryWindow* MemWindow;
+    struct ibv_context* ctx;
+    struct ibv_pd* pd;
+    struct ibv_comp_channel* comp_chan;
+    struct ibv_cq* send_cq;
+    struct ibv_cq* recv_cq;
+    struct ibv_qp* qp;
+    struct ibv_mr* mr;
 
     //
     // Variables for messages
     //
     //
-    ND2_SGE* MsgSgl;
+    struct ibv_sge* MsgSgl;
     char MsgBuf[BUFF_MSG_SIZE];
-    IND2MemoryRegion* MsgMemRegion;
+    struct ibv_mr* MsgMr;
 
 public:
     char* BufferAddress;
